@@ -1,13 +1,14 @@
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
+import Blog from "@/components/blog"
 
-const inter = Inter({ subsets: ['latin'] })
+import  Main  from "@/components/main"
+
 
 export default function Home() {
+
   return (
     <main>
-
-      
+     <Main/>
+     <Blog/>
     </main>
   )
 }
