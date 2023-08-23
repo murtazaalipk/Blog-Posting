@@ -18,7 +18,7 @@ export async function verifyPassword (HashPassword, password) {
     return isValid;
 }
 
-export async function save (email, password){
+export async function save (email, password, fname, lname){
 
 
     const found = getByEmail(email);
@@ -29,8 +29,11 @@ export async function save (email, password){
     const data = getAll();
     data.push({
         id: data.length + 1,
+        FirstName: fname,
+        LastName: lname,
         email, 
         password: HashPassword
+ 
     });
     fs.writeFileSync(filePath, JSON.stringify(data)); 
 }

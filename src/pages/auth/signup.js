@@ -1,19 +1,21 @@
 import Form from "@/components/auth/form";
 import { redirect } from "next/dist/server/api-utils";
 import Link from "next/link";
+import SignIn from "./login";
+
 
 export default function SignUp () {
-    const onSubmit = async ( email, password) => {
+    const onSubmit = async ( email, password ,fname , lname) => {
     try{
          const response = await fetch("/api/auth/signup", {
             method: "POST",
-            body: JSON.stringify({email, password}),
+            body: JSON.stringify({email, password ,fname , lname}),
             headers:{
                 "Content-Type":"application/json" 
             } 
      }); 
  if (response.ok){
-        alert("singup Succesfull");
+         alert("sigup successfull")
      } 
     }catch(err){
         console.log(err)

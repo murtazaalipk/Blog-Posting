@@ -23,7 +23,7 @@ export async function getServerSideProps({ req }) {
     }
     return {
         redirect: {
-            destination: "/profile",
+            destination: "../profile",
             permanent: false
         }
     }
