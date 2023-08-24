@@ -19,6 +19,8 @@ export const authOptions = {
         if (!isValid) {
           throw new Error("password Incorrect");
         }
+        const UserName = user.FirstName + " " + user.LastName;
+        console.log(UserName)
         return { email };
       },
     }),

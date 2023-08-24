@@ -1,7 +1,4 @@
 import Form from "@/components/auth/form";
-import { redirect } from "next/dist/server/api-utils";
-import Link from "next/link";
-import SignIn from "./login";
 
 
 export default function SignUp () {
