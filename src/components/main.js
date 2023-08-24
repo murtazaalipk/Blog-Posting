@@ -9,14 +9,13 @@ export default function Main() {
   );
 }
 const d = new Date();
-let date = d.getHours();
-
+ let date = d.getHours(); 
 let morning;
-if (date < 12) {
+if (date < 12 && date > 3 ) {
   morning = "good morning ";
-} else if (date < 16) {
+} else if (date < 16 && date > 11  ) {
   morning = "good Afternoon ";
-} else if (date < 20) {
+} else if (date < 20 && date > 15 ) {
   morning = "good evening ";
 } else {
   morning = "good Night ";
