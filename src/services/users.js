@@ -3,6 +3,7 @@ import path from 'path';
 import { compare, hash } from 'bcryptjs';
 
 const filePath = path.join(process.cwd(), "src", "data", "users.json");
+const FilePath = path.join(process.cwd(), "src", "data", "users.json");
 
 export function getAll(){
     const data = fs.readFileSync(filePath);
@@ -36,5 +37,18 @@ export async function save (email, password, fname, lname){
  
     });
     fs.writeFileSync(filePath, JSON.stringify(data)); 
+}
+export function getBlogs(){
+    const blogs = fs.readFileSync(FilePath);
+}
+
+export function saveBlogs(blogHead, blogContent){
+    const blogs = getBlogs();
+    blogs.push({
+        id: data.length + 1,
+        head: blogHead,
+        content: blogContent
+    });
+    fs.writeFileSync(FilePath, JSON.stringify(blogs));
 }
 
