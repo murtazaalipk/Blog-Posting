@@ -4,8 +4,8 @@ import Form from "@/components/auth/form";
 export default function SignUp () {
     const onSubmit = async ( email, password ,fname , lname) => {
     try{
-         const response = await fetch("/api/auth/signup", {
-            method: "POST",
+          const response = await fetch("/api/auth/signup", {
+           method: "POST",
             body: JSON.stringify({email, password ,fname , lname}),
             headers:{
                 "Content-Type":"application/json" 
