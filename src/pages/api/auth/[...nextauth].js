@@ -10,7 +10,7 @@ export const authOptions = {
   providers: [
     CredentialsProvider({
       async authorize({ email, password }) {
-        console.log("ALI");
+
         const user = getByEmail(email);
         if (!user) {
           throw new Error("User Not found");
@@ -21,7 +21,7 @@ export const authOptions = {
         }
         const UserName = user.FirstName + " " + user.LastName;
         console.log(UserName)
-        return { email };
+        return { };
       },
     }),
     // ...add more providers here
