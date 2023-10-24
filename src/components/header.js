@@ -5,8 +5,10 @@ export default function Header() {
   const { data: session } = useSession();
  const userName = "Murtaza";
 
+
   return (
     <header>
+       {console.log(session)}
       <nav className="h-10 bg-purple-600 flex items-center pl-40 justify-between">
       <h1 className="text-white font-bold text-xl">Personal Blogging App</h1>
         <div className="">
