@@ -4,6 +4,8 @@ import Link from "next/link";
 export default function Header() {
   const { data: session } = useSession();
  const userName = "Murtaza";
+ const name = session?.user?.name
+ console.log(name)
 
 
   return (

@@ -8,14 +8,7 @@ export default function SignUp() {
   <div>
     <Dashboard/>
     <div className='flex flex-col items-center ' >
-    
-    {(() => {
-            for (let i = 0 ; i <= data.length ; i++) {
-             <Blog data={data[i]}/>
-            }
-          })()}
-    <Blog data={data[0]}  />
-    <Blog data={data[1]}/> 
+    <Blog/>
     </div>
   </div>
   )

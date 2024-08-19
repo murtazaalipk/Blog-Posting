@@ -1,15 +1,14 @@
 import { useRef } from "react";
 
-export default  function Dashboard() {
+export default function Dashboard() {
   const blogHeadRef = useRef();
   const blogContentRef = useRef();
-  async function  getValue(e) {
+  async function getValue(e) {
     e.preventDefault();
     const blogHead = blogHeadRef.current.value;
     const blogContent = blogContentRef.current.value;
+  }
 
-    };
-  
   return (
     <>
       <div>

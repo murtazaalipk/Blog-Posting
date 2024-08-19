@@ -1,14 +1,12 @@
-import Blog from "@/components/blog"
+import Blog from "@/components/blog";
 
-import  Main  from "@/components/main"
-
+import Greet from "@/components/greet";
 
 export default function Home() {
-
   return (
     <main>
-     <Main/>
-     <Blog/>
+      <Greet />
+      <Blog />
     </main>
-  )
+  );
 }
