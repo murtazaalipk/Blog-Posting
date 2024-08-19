@@ -26,7 +26,7 @@ export default function Blog() {
   return (
     <div className="pl-40 pr-40 pb-10 pt-10">
       <div>
-        {blogs.map((blog) => (
+        {blogs.map(blog => (
           <div className=" border border-gray-300 m-5 rounded">
             <div className=" flex gap-7 items-center p-5">
               <div className="flex m-5">
