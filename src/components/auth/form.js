@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { useRef } from "react";
-import { useRouter }from "next/router";
 
 export default function Form({ signin, onFormSubmit }) {
   const emailRef = useRef();
@@ -8,7 +7,6 @@ export default function Form({ signin, onFormSubmit }) {
   const FnameRef = useRef();
   const LnameRef = useRef();
   const designationRef = useRef();
-  const router = useRouter();
   
   const onSubmitHandler = async (e) => {
     const email = emailRef.current.value;
@@ -21,34 +19,7 @@ export default function Form({ signin, onFormSubmit }) {
         const designation = designationRef.current.value;
         const firstName = FnameRef.current.value;
         const lastName = LnameRef.current.value;
-
-        const userData = {
-          firstName,
-          lastName,
-          email,
-          designation,
-          password,
-        };
-        try {
-          const response = await fetch('/api/register', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(userData),
-          });
-  
-          const data = await response.json();
-  
-          if (response.ok) {
-            console.log('User registered successfully:', data);
-            router.push('/auth/login'); // Redirect to login after successful registration
-          } else {
-            console.error('Registration failed:', data.message);
-          }
-        } catch (error) {
-          console.error('An error occurred:', error);
-        }
+        onFormSubmit( firstName, lastName, email, designation, password);
       }
     }
   };
@@ -139,7 +110,7 @@ export default function Form({ signin, onFormSubmit }) {
             <div className="flex items-center justify-between">
               <div className="text-sm">
                 <Link
-                  href={signin ? "/auth/signup" : "/auth/login"}
+                  href={signin ? "/auth/register" : "/auth/login"}
                   className="font-semibold text-purple-600 hover:text-indigo-500"
                 >
                   {signin ? "For SignUp Click Here" : "For Login Click Here"}
