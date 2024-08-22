@@ -1,5 +1,7 @@
-import { getByEmail, verifyPassword } from "@/services/users";
 import NextAuth from "next-auth";
+import User from "@/model/user";
+import { dbConnect } from "@/lib/db";
+import  bcrypt  from "bcryptjs";
 import CredentialsProvider from "next-auth/providers/credentials";
 
 export const authOptions = {
@@ -10,21 +12,27 @@ export const authOptions = {
   providers: [
     CredentialsProvider({
       async authorize({ email, password }) {
+        try {
+          await dbConnect();
+          const user = await User.findOne({ email });
 
-        const user = getByEmail(email);
-        if (!user) {
-          throw new Error("User Not found");
+          if (!user) {
+            throw new Error("No user found with the provided email");
+          }
+
+          const passwordsMatch = await bcrypt.compare(password, user.password);
+
+          if (!passwordsMatch) {
+            throw new Error("Incorrect password");
+          }
+
+          return user;
+        } catch (error) {
+          console.error("Error in authorization: ", error);
+          throw new Error(error.message || "Internal server error");
         }
-        const isValid = await verifyPassword(user.password, password);
-        if (!isValid) {
-          throw new Error("password Incorrect");
-        }
-        const UserName = user.FirstName + " " + user.LastName;
-        console.log(UserName)
-        return { };
       },
-    }),
-    // ...add more providers here
+     }),
   ],
 };
 

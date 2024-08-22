@@ -1,5 +1,4 @@
 import Form from "@/components/auth/form";
-import { data } from "autoprefixer";
 import { getSession } from "next-auth/react"
 import { signIn } from "next-auth/react";
 export default function SignIn() {
