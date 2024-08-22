@@ -1,13 +1,16 @@
 import Link from "next/link";
 import { useRef } from "react";
+import { useRouter }from "next/router";
 
 export default function Form({ signin, onFormSubmit }) {
   const emailRef = useRef();
   const passwordRef = useRef();
   const FnameRef = useRef();
   const LnameRef = useRef();
-
-  const onSubmitHandler = (e) => {
+  const designationRef = useRef();
+  const router = useRouter();
+  
+  const onSubmitHandler = async (e) => {
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
     e.preventDefault();
@@ -15,9 +18,37 @@ export default function Form({ signin, onFormSubmit }) {
       onFormSubmit(email, password);
     } else {
       if (!signin) {
-        const fname = FnameRef.current.value;
-        const lname = LnameRef.current.value;
-        onFormSubmit(email, password, fname, lname);
+        const designation = designationRef.current.value;
+        const firstName = FnameRef.current.value;
+        const lastName = LnameRef.current.value;
+
+        const userData = {
+          firstName,
+          lastName,
+          email,
+          designation,
+          password,
+        };
+        try {
+          const response = await fetch('/api/register', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(userData),
+          });
+  
+          const data = await response.json();
+  
+          if (response.ok) {
+            console.log('User registered successfully:', data);
+            router.push('/auth/login'); // Redirect to login after successful registration
+          } else {
+            console.error('Registration failed:', data.message);
+          }
+        } catch (error) {
+          console.error('An error occurred:', error);
+        }
       }
     }
   };
@@ -54,6 +85,19 @@ export default function Form({ signin, onFormSubmit }) {
                       type="text"
                       placeholder="  LastName"
                       ref={LnameRef}
+                      required
+                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <div className="mt-2">
+                    <input
+                      id="designation"
+                      name="designation"
+                      type="text"
+                      placeholder=" designation"
+                      ref={designationRef}
                       required
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
