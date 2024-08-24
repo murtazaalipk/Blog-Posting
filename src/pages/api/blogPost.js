@@ -1,15 +1,18 @@
 import { dbConnect } from "@/lib/db"
 import Blog from "@/model/blog";
-//import { getSession } from "next-auth/react";
+import { getSession } from "next-auth/react";
 
 export default async function handler(req, res) {
   await dbConnect();
 
-//  const session = await getSession({ req });
+ const session = await getSession({ req });
 
-//   if (!session) {
-//     return res.status(401).json({ message: 'You must be logged in to post a blog.' });
-//   }
+console.log('Request body:', req.body);
+console.log('Session:', session);
+
+  if (!session) {
+    return res.status(401).json({ message: 'You must be logged in to post a blog.' });
+  }
 
   if (req.method === 'POST') {
     try {
@@ -18,7 +21,7 @@ export default async function handler(req, res) {
       const newBlog = new Blog({
         title,
         content,
-       // author: session.user.id,  
+        author: session.user.id,  
       });
 
       await newBlog.save();
