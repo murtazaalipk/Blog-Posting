@@ -2,18 +2,17 @@ import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 
 export default function Header() {
-  const {data: session , status } = useSession();
-  
+  const { data: session, status } = useSession();
+
   if (status === "loading") {
     return <div>loading...</div>;
   }
   return (
     <header>
       <nav className="h-10 bg-purple-600 flex items-center pl-40 justify-between">
-      <h1 className="text-white font-bold text-xl">Personal Blogging App</h1>
+        <h1 className="text-white font-bold text-xl">Personal Blogging App</h1>
         <div className="">
           <div className="  mr-20  ">
-
             {!session ? (
               <Link
                 href="/auth/login"
@@ -23,13 +22,9 @@ export default function Header() {
               </Link>
             ) : null}
 
- 
             {session ? (
               <>
-                <button
-                  onClick={signOut}
-                  className="text-white"
-                >
+                <button onClick={signOut} className="text-white">
                   Log out
                 </button>
                 <Link
@@ -46,4 +41,3 @@ export default function Header() {
     </header>
   );
 }
-

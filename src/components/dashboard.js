@@ -2,43 +2,45 @@ import { useState } from "react";
 import { useSession } from "next-auth/react";
 
 export default function Dashboard() {
-  
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
 
-  console.log(title, content)
-  
-  const {data: session , status } = useSession();
-  
+  const { data: session, status } = useSession();
+  if (status == "loading") {
+    return <div>Loading..</div>;
+  }
+  const userId = session.user.id;
+
   if (status === "loading") {
     return <div>loading...</div>;
   }
 
- const handleSubmit = async (e)=>{
-  e.preventDefault();
-  try{
-    const response = await fetch('/api/blogPost', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      credentials: 'include', // Important for sending cookies
-      body: JSON.stringify({ title, content }),
-    });
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch("/api/blogPost", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include", // Important for sending cookies
+        body: JSON.stringify({ title, content, userId }),
+      });
 
-    if (response.ok) {
-      console.log('Blog posted successfully');
-    } else {
-      console.error('Failed to post blog');
+      if (response.ok) {
+        console.log("Blog posted successfully");
+        setTitle("");
+        setContent("");
+      } else {
+        console.error("Failed to post blog");
+      }
+    } catch (error) {
+      console.error("An error occurred:", error);
     }
-  }catch(error){
-    console.error('An error occurred:', error);
-  }
- }
+  };
 
   return (
     <>
-    {}
       <div>
         <h1 className=" font-bold text-xl pl-40 pt-10 fontdash ">Dashboard</h1>
         <div>
@@ -57,7 +59,6 @@ export default function Dashboard() {
                   maxLength={30}
                   onChange={(e) => setTitle(e.target.value)}
                   required
-                 
                   className="block w-4/5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
