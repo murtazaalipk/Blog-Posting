@@ -1,7 +1,6 @@
 import Blog from "@/components/blog";
 import Dashboard from "@/components/dashboard";
 import { getSession } from "next-auth/react"
-import data from '@/data/blogs.json';
 
 export default function SignUp() {
   return (
