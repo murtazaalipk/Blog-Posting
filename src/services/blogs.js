@@ -1,17 +1,21 @@
-/* import fs from 'fs';
-import path from 'path';
-const filePath = path.join(process.cwd(), "src", "data", "blogs.json");
+import blog from "@/model/blog"
 
-export function getBlogs(){
-    const data = fs.readFileSync(filePath);
+export const getAllBlog = async () => {
+    try {
+
+        const blogs = await blog.find().populate('author','designation firstName')
+        return blogs.map(blog => ({
+            
+            id: blog?._id,
+            title: blog?.title,
+            content: blog?.content,
+            AuthorDesignation: blog?.author?.designation,
+            AuthorName: blog?.author?.firstName,
+        }))
+
+    } catch(e) {
+        console.log("Error From getAllBlog Function")
+        throw new Error("Error: ", e.message );
+    }
+
 }
-
-export function saveBlogs(blogHead, blogContent){
-    const data = getBlogs();
-    data.push({
-        id: data.length + 1,
-        head: blogHead,
-        content: blogContent
-    })
-    fs.writeFileSync(filePath, JSON.stringify(data));
-} */
